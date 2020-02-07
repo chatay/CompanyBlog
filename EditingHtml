@@ -1,11 +1,3 @@
-<cfprocessingdirective pageEncoding="utf-8">
-<cfparam name = "form.hediye_gonderenAd" default = "">
-<cfparam name = "form.hediye_aliciAd" default = "">
-<cfparam name = "form.hediye_yakinlik" default = "">
-<cfparam name = "form.hediye_hediye" default = "">
-<cfparam name = "form.hediye_adres" default = "">
-<cfparam name = "form.hediye_not" default = "">
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,21 +24,7 @@
     </div>
                
   <cfform name="procenneBlog" action="" method="post">
-  	<cfoutput>
-  		<div class="row">
-  		<div class="col-md-6 col-xs-12" type="column" index = "1" sort="true" id="aaa">
-	  		<div class="form-group" id="baslik">
-	  			<label class="col col-6 col-xs-2" >
-		                DÜŞÜNCELERİNİZ:
-		    	</label>
-		    		 <div class="col col-6 col-xs-10">
-	                           <input type = "text" name="hediye_gonderenAd" id = "hediye_gonderenAd" value="#form.hediye_gonderenAd#" placeholder="Ad ve Soyad Giriniz">
-	                           <input type = "hidden" name = "is_submit" id = "is_submit" value = "1">
-	        		 </div>
-  		   </div>   	
-    	</div>
-     </div>
-  	</cfoutput>
+  	
   </cfform>            
                
 </body>
