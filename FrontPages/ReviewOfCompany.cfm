@@ -1,3 +1,13 @@
+
+
+
+
+<!--- The cfajaxproxy tag creates a client-side proxy for the emp CFC. 
+View the generated page source to see the resulting JavaScript. 
+The emp CFC is in the components subdirectory of the directory that
+contains this page. --->
+<cfajaxproxy cfc="ProcenneBlog.Model.CheckTheRequest" jsclassname="_req"> 
+
 <!--- 
 		cfprocessingdirective In general, one should no longer need to use this tag to specify the page encoding
  		as the ColdFusion server should be able to identify it automatically.
@@ -16,6 +26,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://wiki.workcube.com/Education/catalyst.css">
     <link rel="stylesheet" href="acme.css" type="text/css" />
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.3.1.min.js"></script>
     
     <title>Procenne</title>
 </head>
@@ -24,16 +35,47 @@
 	/* isDefined() will look through a bunch of scopes 
 	 looking for a variable fo that name to exist,
 	 whereas structKeyExists() just does what it's told.  */
-	<cfif structKeyExists(Form, "is_submit")>
+	<cfif isdefined("form.isSubmitted") AND len(form.isSubmitted)>
+	
 	console.log("yes submitted!")
+	$.ajax({
+
+                type: "GET",
+
+                url: "../Model/CheckTheRequest.cfc",
+
+                data:{
+
+                    method: "_req"
+
+                },
+
+                dataType: "json",
+
+                success: function(data){
+
+                    document.getElementById("result").value = data.VAR1;
+
+               }
+
+     });
+	
 	<cfelse>
-	console.log("nop!")
+	
+	console.log("nope!")
 	</cfif>
 
 	function RemoteCFC()
 	{
 		this.Name ="";
 	}
+	
+	var myErrorHandler = function(statusCode, statusMsg) 
+		{ 
+		alert('Status: ' + statusCode + ', ' + statusMsg); 
+		} 
+ 
+ 
 </script>
 
 <body>
@@ -55,8 +97,14 @@
 	                      
 	    		 </div>
 	    		 <div class="col-4 col-6 col-xs-10">
+	    		 	<input type = "hidden" name = "isSubmitted" id = "isSubmitted" value = "1">
 	                   <input type="submit" name="btnSend" id="btnSend" class="btn btn-success">
-	                   <input type = "hidden" name = "is_submit" id = "is_submit" value = "1">
+	                   
+	             </div>
+	             <div>
+	             <textarea id="result">
+	             	some text
+	             </textarea>
 	             </div>
 	             
   		   </div>   	
